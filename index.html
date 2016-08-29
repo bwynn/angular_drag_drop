@@ -6,16 +6,17 @@
 </head>
 <body ng-app="dragDropApp">
     <div ng-controller="mainController" class="main-container">
-        <div class="item" ng-repeat="item in items" style="background-color: {{item.color}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="item" jqyoui-draggable="{animate: true}" ng-hide="!item.title">{{item.title}}</div>
+        <div class="item" ng-repeat="item in items track by $index" data-drop="true" style="background-color: {{item.color}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="item" jqyoui-draggable="{animate: true}" ng-hide="!item.title">{{item.title}}</div>
 
         <div class="bucket" data-drop="true" data-jqyoui-options ng-model="newItems" jqyoui-droppable="{onDrop: 'finished()'}">
-            <div class="item" ng-repeat="item in newItems" data-drag="false" style="background-color: {{item.color}}" data-jqyoui-options ng-model="item" jqyoui-draggable ng-hide="!item.title">{{item.title}}</div>
+            <div class="item" ng-repeat="item in newItems track by $index" data-drag="false" style="background-color: {{item.color}}" data-jqyoui-options ng-model="item" jqyoui-draggable ng-hide="!item.title">{{item.title}}</div>
         </div>
     </div>
     <!-- libraries -->
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/jquery-ui/jquery-ui.min.js"></script>
     <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
     <script src="lib/angular-dragdrop/src/angular-dragdrop.min.js"></script>
 
     <!-- application scripts -->

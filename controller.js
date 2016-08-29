@@ -1,8 +1,7 @@
 angular.module('MainCtrl', [])
     .controller('mainController', ['$scope', function($scope) {
-        //$scope.item1 = {title: 'Try dragging me around'};
-        //$scope.item2 = {};
 
+        // items to select from
         $scope.items = [
             {title: "Affinity.Exe", "color": "green"},
             {title: "Initiate", "color": "purple"},
@@ -15,6 +14,7 @@ angular.module('MainCtrl', [])
             {title: "Bound by Gravity", "color": "steelblue"}
         ];
 
+        // newItems array to hold selected objects
         $scope.newItems = [];
 
         // called with the onDrop method

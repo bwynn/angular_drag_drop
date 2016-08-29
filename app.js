@@ -1,1 +1,1 @@
-angular.module('dragDropApp', ['ngDragDrop', 'MainCtrl']);
+angular.module('dragDropApp', ['ngAnimate', 'ngDragDrop', 'MainCtrl']);

@@ -2,16 +2,23 @@ body {
   height: 100%;
   width: 100%;
   margin: 0; }
-  body .item {
-    height: 100px;
-    width: 100px;
-    background-color: red; }
-  body .bucket {
-    height: 200px;
-    width: 80%;
-    border: 2px solid #CCC;
-    position: absolute;
-    top: 200px;
-    left: 10%; }
+  body .main-container {
+    display: flex; }
+    body .main-container .item {
+      height: 100px;
+      width: 100px;
+      background-color: red; }
+      body .main-container .item:hover {
+        cursor: pointer; }
+    body .main-container .bucket {
+      height: 200px;
+      width: 80%;
+      border: 2px solid #CCC;
+      position: absolute;
+      top: 200px;
+      left: 10%;
+      display: flex; }
+  body .showDashed {
+    border: 2px dashed #CCC; }
 
 /*# sourceMappingURL=main.css.map */
