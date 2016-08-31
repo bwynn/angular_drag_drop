@@ -19,9 +19,11 @@ module.exports = function(config) {
         "./public/lib/angular-ui-router/release/angular-ui-router.js",
         "./public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js",
         "./public/lib/angular-mocks/angular-mocks.js",
-        "./public/services/users.js",
+        "./public/services/users/users.js",
+        "./public/components/users/users.js",
         "./public/app.js",
-        "./public/services/users.spec.js"
+        "./public/services/users/users.spec.js",
+        "./public/components/users/users.spec.js"
     ],
 
 
@@ -39,7 +41,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['spec'],
 
 
     // web server port

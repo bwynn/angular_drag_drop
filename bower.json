@@ -1,10 +1,10 @@
 {
-  "name": "DragNDropAngular",
-  "version": "1.0.1",
-  "dependencies": {
-    "angular": "^1.5.8",
-    "angular-mocks": "^1.5.8",
-    "angular-ui-router": "^0.3.1",
-    "angular-drag-and-drop-lists": "^1.4.0"
-  }
+    "name": "DragNDropAngular",
+    "version": "1.0.1",
+    "dependencies": {
+        "angular": "^1.5.8",
+        "angular-mocks": "^1.5.8",
+        "angular-ui-router": "^0.3.1",
+        "bootstrap": "^3.3.7"
+    }
 }
