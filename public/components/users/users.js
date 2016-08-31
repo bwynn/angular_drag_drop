@@ -2,7 +2,10 @@ angular.module('components.users', [])
     .controller('UsersController', ['Users', function(Users) {
         var vm = this;
 
-        vm.users = Users.all();
+        Users.all().then(function(data) {
+            vm.users = data;
+        });
+
     }])
     .config(function($stateProvider) {
         $stateProvider
