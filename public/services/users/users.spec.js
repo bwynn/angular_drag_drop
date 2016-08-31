@@ -52,12 +52,31 @@ describe('Users factory', function() {
     });
 
     describe('.all()', function() {
+        var result;
+
+        beforeEach(function() {
+            result = [];
+
+            spyOn(Users, "all").and.callThrough();
+        });
+
         it('should exist', function() {
             expect(Users.all).toBeDefined();
         });
 
         it('should return a hard coded list of users', function() {
-            expect(Users.all()).toEqual(userList);
+
+            $httpBackend.whenGET('/get_all_users').respond(200, $q.when(userList));
+
+            Users.all().then(function(res) {
+                result = res;
+            });
+
+            $httpBackend.flush();
+
+            expect(result[0]).toEqual(userList[0]); // objects are matching
+            expect(result.length).toEqual(2);
+            expect(result[1].languages).toContain("Italian");
         });
     });
 
@@ -77,7 +96,7 @@ describe('Users factory', function() {
 
         it('should return a single user', function() {
 
-            // mocked response 
+            // mocked response
             $httpBackend.whenPOST('/find_by_id', query).respond(200, $q.when(RESPONSE_SUCCESS));
 
             expect(Users.findById).not.toHaveBeenCalled();
