@@ -20,10 +20,14 @@ module.exports = function(config) {
         "./public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js",
         "./public/lib/angular-mocks/angular-mocks.js",
         "./public/services/users/users.js",
+        "./public/services/bikes/bikes.js",
         "./public/components/users/users.js",
+        "./public/components/bikes/bikes.js",
         "./public/app.js",
         "./public/services/users/users.spec.js",
-        "./public/components/users/users.spec.js"
+        "./public/services/bikes/bikes.spec.js",
+        "./public/components/users/users.spec.js",
+        "./public/components/bikes/bikes.spec.js"
     ],
 
 

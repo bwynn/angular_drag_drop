@@ -19,6 +19,7 @@ app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
 
 require('./routes/routes')(app);
+require('./routes/bike_routes')(app);
 
 app.listen(port);
 

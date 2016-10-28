@@ -1,0 +1,3 @@
+describe('Bikes factory', function() {
+
+});
