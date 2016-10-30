@@ -35,8 +35,38 @@ describe('Bikes factory', function() {
           "size": "M"
         }
       ]
+    },
+    {
+      "_id": "3fn5",
+      "buildKit": "Shimano XTR",
+      "fork": "Fox 34 Talas",
+      "price": 6999,
+      "year": "2017",
+      "model": "Stumpjumper",
+      "brand": "Specialized",
+      "geometry": [
+        {
+          "_id": "5812c4fa0c5da7c06cb1ef0a",
+          "soHeight": 719,
+          "bbHeight": 334,
+          "stAngle": 73.8,
+          "htAngle": 67,
+          "ttLength": 621,
+          "wheelbase": 1164,
+          "size": "L"
+        }
+      ]
     }
-  ]
+  ];
+
+  var newBike = {
+    buildKit: "Shimano XTR",
+    fork: "Fox 34 Talas",
+    price: 6999,
+    year: "2017",
+    model: "Stumpjumper",
+    brand: "Specialized"
+  };
 
   beforeEach(angular.mock.module('api.bikes'));
 
@@ -74,7 +104,7 @@ describe('Bikes factory', function() {
       $httpBackend.flush();
 
       expect(result[0]).toEqual(bikeList[0]);
-      expect(result.length).toEqual(1);
+      expect(result.length).toEqual(2);
       expect(result[0]._id).toEqual('5812c40b0c5da7c06cb1ef09');
       expect(typeof result[0].price).toEqual('number');
       expect(result[0].geometry.length).toEqual(2);
@@ -97,7 +127,6 @@ describe('Bikes factory', function() {
 
     // should take a parameter of id
     it('should take an id parameter', function() {
-      // expect typeof param should be string
       $httpBackend.whenPOST('/get_bike_by_id').respond(200, $q.when(bikeList));
 
       Bikes.getBikeById(bikeList[0].id).then(function(res) {
@@ -111,6 +140,75 @@ describe('Bikes factory', function() {
       expect(result[0]).toEqual(bikeList[0]);
     });
 
+  });
+
+  describe('addBike()', function() {
+
+    var result;
+
+    beforeEach(function() {
+
+      result = {};
+
+      spyOn(Bikes, 'addBike').and.callThrough();
+    });
+
+    it('should be defined', function() {
+      expect(Bikes.addBike).toBeDefined();
+    });
+
+    it('should add a bike to the database and return a response of the bike data', function() {
+      $httpBackend.whenPOST('/add_bike').respond(200, $q.when(bikeList));
+
+      Bikes.addBike(newBike).then(function(res) {
+        result = res;
+      });
+
+      $httpBackend.flush();
+
+      expect(result._id).toEqual(newBike._id);
+      expect(result[1].brand).toEqual(newBike.brand);
+    });
+  });
+
+  describe('addBikeDetails()', function() {
+
+    var result;
+
+    beforeEach(function() {
+      result = {};
+
+      spyOn(Bikes, "addBikeDetails").and.callThrough();
+    });
+
+    it('should be defined', function() {
+      expect(Bikes.addBikeDetails).toBeDefined();
+    });
+
+    it('should add data to bikeList[1].geometry', function() {
+      var geoData = {
+        _id: "3fn5",
+        soHeight: 719,
+        bbHeight: 334,
+        stAngle: 73.8,
+        htAngle: 67,
+        ttLength: 621,
+        wheelbase: 1164,
+        size: "L"
+      };
+
+      $httpBackend.whenPUT('/add_bike_details').respond(200, $q.when(bikeList));
+
+      Bikes.addBikeDetails(geoData).then(function(res) {
+        result = res;
+      });
+
+      $httpBackend.flush();
+
+      expect(result[1].geometry[0].soHeight).toEqual(geoData.soHeight);
+      expect(result[1].geometry[0].size).toEqual(geoData.size);
+      expect(result[1]._id).toEqual(geoData._id);
+    });
   });
 
 });

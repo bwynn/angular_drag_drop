@@ -14,5 +14,17 @@ angular.module('api.bikes', [])
       });
     };
 
+    Bikes.addBike = function(data) {
+      return $http.post('/add_bike', data).then(function(res) {
+        return res.data;
+      });
+    };
+
+    Bikes.addBikeDetails = function(data) {
+      return $http.put('/add_bike_details', data).then(function(res) {
+        return res.data;
+      });
+    }; 
+
     return Bikes;
   }]);
