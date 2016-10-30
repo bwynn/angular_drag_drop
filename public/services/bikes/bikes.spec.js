@@ -95,6 +95,22 @@ describe('Bikes factory', function() {
       expect(Bikes.getBikeById).toBeDefined();
     });
 
+    // should take a parameter of id
+    it('should take an id parameter', function() {
+      // expect typeof param should be string
+      $httpBackend.whenPOST('/get_bike_by_id').respond(200, $q.when(bikeList));
+
+      Bikes.getBikeById(bikeList[0].id).then(function(res) {
+        result = res;
+      });
+
+      $httpBackend.flush();
+
+      expect(result[0]._id).toEqual('5812c40b0c5da7c06cb1ef09');
+      expect(typeof bikeList[0]._id).toEqual('string');
+      expect(result[0]).toEqual(bikeList[0]);
+    });
+
   });
 
 });

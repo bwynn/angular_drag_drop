@@ -16,7 +16,9 @@ exports.getBikes = (req, res) => {
 // getBikeById
 exports.getBikeById = (req, res) => {
   Bike.findOne({_id: req.body.id}, (err, bike) => {
-    if (err) res.send(err);
+    if (err) {
+      res.send(err); 
+    }
 
     res.json(bike);
   });
