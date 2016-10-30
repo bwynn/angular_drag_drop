@@ -7,6 +7,9 @@ module.exports = (app) => {
   // get bikes
   app.get('/get_bikes', bikeCtrl.getBikes);
 
+  // get bike
+  app.get('/bike_by_id', bikeCtrl.getBikeById); 
+
   // add bike
   app.post('/add_bike', bikeCtrl.addBike);
 
