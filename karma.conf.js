@@ -16,17 +16,18 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         "./public/lib/angular/angular.js",
-        "./public/lib/angular-ui-router/release/angular-ui-router.js",
+        "./public/lib/angular-route/angular-route.js",
         "./public/lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js",
         "./public/lib/angular-mocks/angular-mocks.js",
         "./public/services/users/users.js",
         "./public/services/bikes/bikes.js",
         "./public/components/users/users.js",
         "./public/components/bikes/bikes.js",
+        "./pubilc/routes/app_routes.js",
         "./public/app.js",
         "./public/services/users/users.spec.js",
         "./public/services/bikes/bikes.spec.js",
-        "./public/components/users/users.spec.js",
+        //"./public/components/users/users.spec.js",
         "./public/components/bikes/bikes.spec.js"
     ],
 

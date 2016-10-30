@@ -1,14 +1,11 @@
 angular.module('components.users', [])
-    .controller('UsersController', ['Users', function(Users) {
-        var vm = this;
+    .controller('UsersController', ['$scope', 'Users', function($scope, Users) {
 
-        vm.users = Users.all();
-    }])
-    .config(function($stateProvider) {
-        $stateProvider
-            .state('users', {
-                url: '/users',
-                templateUrl: 'components/users/users.html',
-                controller: 'UsersController as uc'
-            });
-    });
+        Users.all().then(function(data) {
+
+          $scope.users = data;
+
+          console.log($scope.users);
+        });
+
+    }]);

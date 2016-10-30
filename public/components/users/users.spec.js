@@ -25,7 +25,7 @@ describe('UsersController', function() {
         }
     ];
 
-    beforeEach(angular.mock.module('ui.router'));
+    beforeEach(angular.mock.module('ngRoute'));
     beforeEach(angular.mock.module('components.users'));
     beforeEach(angular.mock.module('api.users'));
 
