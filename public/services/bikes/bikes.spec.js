@@ -59,7 +59,39 @@ describe('Bikes factory', function() {
     }
   ];
 
-  var newBike = {
+  var RESPONSE_SUCCESS = {
+    _id: "5812c40b0c5da7c06cb1ef09",
+    buildKit: "SRAM XX1 Eagle",
+    fork: "Fox 34 Float Factory Kashima 130 Fork",
+    price: 7999,
+    year: "2017",
+    model: "5010 CC",
+    brand: "Santa Cruz",
+    geometry: [
+      {
+        _id: "5812c4fa0c5da7c06cb1ef0a",
+        soHeight: 719,
+        bbHeight: 334,
+        stAngle: 73.8,
+        htAngle: 67,
+        ttLength: 621,
+        wheelbase: 1164,
+        size: "L"
+      },
+      {
+        _id: "5812c5b60c5da7c06cb1ef0b",
+        soHeight: 717,
+        bbHeight: 334,
+        stAngle: 73.8,
+        htAngle: 67,
+        ttLength: 598,
+        wheelbase: 1141,
+        size: "M"
+      }
+    ]
+  };
+
+  var NEW_BIKE = {
     buildKit: "Shimano XTR",
     fork: "Fox 34 Talas",
     price: 6999,
@@ -127,17 +159,25 @@ describe('Bikes factory', function() {
 
     // should take a parameter of id
     it('should take an id parameter', function() {
-      $httpBackend.whenPOST('/get_bike_by_id').respond(200, $q.when(bikeList));
+      var id = {id: '5812c40b0c5da7c06cb1ef09'};
 
-      Bikes.getBikeById(bikeList[0].id).then(function(res) {
+      $httpBackend.whenPOST('/get_bike_by_id', id).respond(200, $q.when(RESPONSE_SUCCESS));
+
+      Bikes.getBikeById(id).then(function(res) {
         result = res;
       });
 
       $httpBackend.flush();
 
-      expect(result[0]._id).toEqual('5812c40b0c5da7c06cb1ef09');
-      expect(typeof bikeList[0]._id).toEqual('string');
-      expect(result[0]).toEqual(bikeList[0]);
+      expect(result._id).toEqual(RESPONSE_SUCCESS._id);
+      expect(typeof result._id).toEqual('string');
+      expect(typeof result).toEqual('object');
+    });
+
+    it('should throw an error if params improperly sent', function() {
+      $httpBackend.whenPOST('/get_bike_by_id').respond(200, $q.when(RESPONSE_SUCCESS));
+
+      expect(Bikes.getBikeById).toThrow(Error("No parameters passed in."));
     });
 
   });
@@ -158,16 +198,21 @@ describe('Bikes factory', function() {
     });
 
     it('should add a bike to the database and return a response of the bike data', function() {
-      $httpBackend.whenPOST('/add_bike').respond(200, $q.when(bikeList));
+      $httpBackend.whenPOST('/add_bike', NEW_BIKE).respond(200, $q.when(bikeList[0]));
 
-      Bikes.addBike(newBike).then(function(res) {
+      Bikes.addBike(NEW_BIKE).then(function(res) {
         result = res;
       });
 
       $httpBackend.flush();
 
-      expect(result._id).toEqual(newBike._id);
-      expect(result[1].brand).toEqual(newBike.brand);
+      expect(result._id).toEqual(bikeList[0]._id);
+    });
+
+    it('should throw an error if no paramters are passed in', function() {
+      $httpBackend.whenPOST('/add_bike').respond(200, $q.when(bikeList[0]));
+
+      expect(Bikes.addBike).toThrow(Error("Parameters missing."));
     });
   });
 
@@ -197,7 +242,7 @@ describe('Bikes factory', function() {
         size: "L"
       };
 
-      $httpBackend.whenPUT('/add_bike_details').respond(200, $q.when(bikeList));
+      $httpBackend.whenPUT('/add_bike_details', geoData).respond(200, $q.when(bikeList));
 
       Bikes.addBikeDetails(geoData).then(function(res) {
         result = res;
@@ -209,6 +254,7 @@ describe('Bikes factory', function() {
       expect(result[1].geometry[0].size).toEqual(geoData.size);
       expect(result[1]._id).toEqual(geoData._id);
     });
+
   });
 
 });
