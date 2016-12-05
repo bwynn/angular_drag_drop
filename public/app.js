@@ -1,1 +1,1 @@
-angular.module('ngDragDropApp', ['ngRoute', 'dndLists', 'appRoutes', 'api.users', 'api.bikes', 'components.users', 'components.bikes']);
+angular.module('ngDragDropApp', ['ngRoute', 'dndLists', 'appRoutes', 'api.users', 'api.bikes', 'components.users', 'component.bikes', 'ctrl.bikes', 'component.bike', 'ctrl.bike', 'component.compare', 'ctrl.compare']);
