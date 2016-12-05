@@ -112,6 +112,8 @@ describe('Bikes factory', function() {
     expect(Bikes).toBeDefined();
   });
 
+  // get all bikes unit test
+    // retrieves all bikes from mongo db
   describe('getAllBikes()', function() {
     var result;
 
@@ -143,6 +145,8 @@ describe('Bikes factory', function() {
     });
   });
 
+  // get bike by id
+    // queries db by id and returns bike object
   describe('getBikeById()', function() {
 
     var result;
@@ -182,6 +186,8 @@ describe('Bikes factory', function() {
 
   });
 
+  // add bike
+    // adds bike object to db
   describe('addBike()', function() {
 
     var result;
@@ -216,6 +222,11 @@ describe('Bikes factory', function() {
     });
   });
 
+  // add bike details
+    // second portion of a bike object, which pushes size specific details.
+    // this is a separate service method because some bikes may have certain
+    // sizes available, for example, one bike could have (S, M, and L) sizes
+    // available, whereas another could have (S, M, L, XL).
   describe('addBikeDetails()', function() {
 
     var result;
@@ -253,6 +264,87 @@ describe('Bikes factory', function() {
       expect(result[1].geometry[0].soHeight).toEqual(geoData.soHeight);
       expect(result[1].geometry[0].size).toEqual(geoData.size);
       expect(result[1]._id).toEqual(geoData._id);
+    });
+
+  });
+
+  // update bike
+  describe('updateBike()', function() {
+
+    var result;
+
+    beforeEach(function() {
+      result = {};
+
+      spyOn(Bikes, 'updateBike').and.callThrough();
+    });
+
+    it('should be defined', function() {
+      expect(Bikes.updateBike).toBeDefined();
+    });
+
+    /*it('should throw error when missing query parameters', function() {
+      var missingBikeData = {
+        buildKit: "SRAM XX1 Eagle",
+        fork: "Fox 34 Float Factory Kashima 130 Fork",
+        price: 7999,
+        year: "2017",
+        model: "5010 CC"
+      };
+
+      $httpBackend.whenPUT('/update_bike', missingBikeData).respond(200, $q.when(RESPONSE_SUCCESS));
+
+      expect(Bikes.updateBike).toThrow(Error("Missing brand and/or id value"));
+    });*/
+
+    it('should return new data values', function() {
+      var newBikeData = {
+        _id: "5812c40b0c5da7c06cb1ef09",
+        brand: "Santa Cruz",
+        buildKit: "Shimano XTR",
+        price: 6999
+      };
+
+      $httpBackend.whenPUT('/update_bike', newBikeData).respond(200, $q.when(NEW_BIKE));
+
+      Bikes.updateBike(newBikeData).then(function(res) {
+        result = res;
+      });
+
+      $httpBackend.flush();
+
+      expect(result.buildKit).toEqual("Shimano XTR");
+      expect(result.price).toEqual(6999);
+    });
+
+  });
+
+  // remove bike
+  describe('removeBike()', function() {
+    var result;
+
+    beforeEach(function() {
+      result = {};
+
+      spyOn(Bikes, 'removeBike').and.callThrough();
+    });
+
+    it('should be defined', function() {
+      expect(Bikes.removeBike).toBeDefined();
+    });
+
+    it('should remove a bike', function() {
+      var id = {id: '5812c40b0c5da7c06cb1ef09'};
+
+      $httpBackend.whenPUT('/remove_bike', id).respond(200, $q.when({}));
+
+      Bikes.removeBike(id).then(function(res) {
+        result = res;
+      });
+
+      $httpBackend.flush();
+
+      expect(result).toEqual({}); 
     });
 
   });

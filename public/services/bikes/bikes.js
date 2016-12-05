@@ -36,5 +36,27 @@ angular.module('api.bikes', [])
       });
     };
 
+    Bikes.updateBike = function(data) {
+      // throws error if brand && id are not present
+      if (!data.brand && !data._id) {
+        throw(Error("Missing brand and/or id value"));
+      }
+
+      return $http.put('/update_bike', data).then(function(res) {
+        return res.data;
+      });
+    };
+
+    Bikes.removeBike = function(data) {
+      // throws error if id is missing
+      if (!data.id) {
+        throw(Error("Missing bike id value"));
+      }
+
+      return $http.put('/remove_bike', data).then(function(res) {
+        return res.data;
+      });
+    }; 
+
     return Bikes;
   }]);
